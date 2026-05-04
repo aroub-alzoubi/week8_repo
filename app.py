@@ -5,7 +5,6 @@ import joblib
 from feature_extraction import prepare_features
 from agents import detector_agent, analyzer_agent, reporter_agent
 
-
 app = Flask(__name__)
 
 model = joblib.load("model.pkl")
@@ -48,15 +47,32 @@ def dashboard():
 @app.route("/analyze", methods=["POST"])
 def analyze():
    url = request.form["url"]
+   url_lower = url.lower()
 
-   log_data = {
-       "duration": len(url),
-       "bytes_sent": len(url) * 50,
-       "bytes_received": len(url) * 70,
-       "failed_logins": url.lower().count("login"),
-       "port": 443 if url.startswith("https") else 80,
-       "protocol": "TCP"
-   }
+   if (
+       "login" in url_lower
+       or "bank" in url_lower
+       or "secure" in url_lower
+       or "verify" in url_lower
+       or url.startswith("http://")
+   ):
+       log_data = {
+           "duration": 90,
+           "bytes_sent": 20000,
+           "bytes_received": 25000,
+           "failed_logins": 12,
+           "port": 22,
+           "protocol": "TCP"
+       }
+   else:
+       log_data = {
+           "duration": 5,
+           "bytes_sent": 500,
+           "bytes_received": 800,
+           "failed_logins": 0,
+           "port": 443,
+           "protocol": "TCP"
+       }
 
    result = predict_log(log_data)
    result["url"] = url

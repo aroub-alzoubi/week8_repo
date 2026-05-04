@@ -10,8 +10,7 @@
 <h2>Analyze URL</h2>
 
 <form action="/analyze" method="POST">
-<label>Enter URL:</label>
-<input type="text" name="url" placeholder="https://example.com/login" required style="width:350px;">
+<input type="text" name="url" placeholder="Enter URL here" required style="width:350px;">
 <button type="submit">Analyze</button>
 </form>
 
@@ -33,19 +32,20 @@
 <p><strong>URL:</strong> {{ result.url }}</p>
 
 <h3>Extracted Features</h3>
-<p><strong>Duration:</strong> {{ result.log.duration }}</p>
-<p><strong>Bytes Sent:</strong> {{ result.log.bytes_sent }}</p>
-<p><strong>Bytes Received:</strong> {{ result.log.bytes_received }}</p>
-<p><strong>Failed Logins:</strong> {{ result.log.failed_logins }}</p>
-<p><strong>Port:</strong> {{ result.log.port }}</p>
-<p><strong>Protocol:</strong> {{ result.log.protocol }}</p>
+<p>Duration: {{ result.log.duration }}</p>
+<p>Bytes Sent: {{ result.log.bytes_sent }}</p>
+<p>Bytes Received: {{ result.log.bytes_received }}</p>
+<p>Failed Logins: {{ result.log.failed_logins }}</p>
+<p>Port: {{ result.log.port }}</p>
+<p>Protocol: {{ result.log.protocol }}</p>
 
 <h3>Detection Result</h3>
-<p><strong>Status:</strong> {{ result.status }}</p>
-<p><strong>Risk Level:</strong> {{ result.risk_level }}</p>
-<p><strong>Detector Agent:</strong> {{ result.detection_message }}</p>
-<p><strong>Analyzer Agent:</strong> {{ result.analysis }}</p>
-<p><strong>Reporter Agent:</strong> {{ result.report }}</p>
+<p>Status: {{ result.status }}</p>
+<p>Risk Level: {{ result.risk_level }}</p>
+<p>Detector: {{ result.detection_message }}</p>
+<p>Analyzer: {{ result.analysis }}</p>
+<p>Reporter: {{ result.report }}</p>
+
 </div>
    {% endfor %}
 
